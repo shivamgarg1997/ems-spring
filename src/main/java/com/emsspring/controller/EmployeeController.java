@@ -23,10 +23,11 @@ public class EmployeeController {
 //
 //    }
 
+
     @GetMapping("/{id}")
     public ResponseEntity getEmployee(@PathVariable("id") String id){
         if(StringUtils.isBlank(id)){
-
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee Id was not found");
         }
         Employee employee = employeeManagement.getEmployee(id);
         return ResponseEntity.status(HttpStatus.OK).body(employee);

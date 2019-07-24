@@ -5,7 +5,10 @@ import com.emsspring.model.Employee;
 import com.emsspring.abstractaudit.*;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 @Repository
+@Transactional
 public class DefaultEmployeeDao extends AbstractAuditDao implements EmployeeDao {
     @Override
     public Employee getEmployee(String id) {
