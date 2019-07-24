@@ -12,6 +12,6 @@ public interface EmployeeManagement {
 
     Employee addEmployee(Employee employee);
 
-    int deleteEmployee();
+    int deleteEmployee(String id);
 
 }

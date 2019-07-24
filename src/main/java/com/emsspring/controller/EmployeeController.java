@@ -18,11 +18,11 @@ public class EmployeeController {
     @Autowired
     private EmployeeManagement employeeManagement;
 
-//    @GetMapping("/list")
-//    public ResponseEntity getEmployees(){
-//
-//    }
-
+    @GetMapping("/list")
+    public ResponseEntity getEmployees(){
+        List<Employee> employeesList = employeeManagement.getAllEmployees();
+        return ResponseEntity.status(200).body(employeesList);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity getEmployee(@PathVariable("id") String id){
@@ -37,6 +37,15 @@ public class EmployeeController {
     public ResponseEntity addEmployee(@RequestBody Employee employee){
         employeeManagement.addEmployee(employee);
         return ResponseEntity.status(HttpStatus.OK).body("okay");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteEmployee(@PathVariable("id") String id){
+        if(employeeManagement.deleteEmployee(id) > 0){
+            return ResponseEntity.status(200).body("Employee successfully deleted");
+        } else{
+            return ResponseEntity.status(200).body("Could not delete Employee");
+        }
     }
 
 }

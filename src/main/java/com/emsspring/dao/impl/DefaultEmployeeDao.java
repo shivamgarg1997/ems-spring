@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public class DefaultEmployeeDao extends AbstractAuditDao implements EmployeeDao {
+public class DefaultEmployeeDao extends AbstractAuditDao<Employee> implements EmployeeDao {
     @Override
     public Employee getEmployee(String id) {
         return null;
@@ -19,5 +19,10 @@ public class DefaultEmployeeDao extends AbstractAuditDao implements EmployeeDao 
     public Employee addEmployee(Employee employee) {
         save(employee);
         return null;
+    }
+
+    @Override
+    public int deleteEmployee(String id) {
+        return 0;
     }
 }

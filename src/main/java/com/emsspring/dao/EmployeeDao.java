@@ -7,4 +7,6 @@ public interface EmployeeDao {
     Employee getEmployee(String id);
 
     Employee addEmployee(Employee employee);
+
+    int deleteEmployee(String id);
 }

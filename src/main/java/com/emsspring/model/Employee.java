@@ -1,23 +1,24 @@
 package com.emsspring.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "EMPLOYEE")
-public class Employee {
+public class Employee extends AbstractModel implements Serializable {
 
     public Employee() {}
     public Employee(String id, String firstName, String lastName, String email) {
-        super();
-        this.id = id;
+        super(id);
+        //this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    @Id
-    @Column(name = "ID", unique = false, nullable = false)
-    private String id;
+//    @Id
+//    @Column(name = "ID", unique = false, nullable = false)
+//    private String id;
 
     @Column(name = "FIRSTNAME")
     private String firstName;
@@ -28,13 +29,15 @@ public class Employee {
     @Column(name = "EMAIL", unique = false, nullable = false)
     private String email;
 
-    public String getId() {
-        return id;
-    }
+    private Department department;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
 
     public String getFirstName() {
         return firstName;

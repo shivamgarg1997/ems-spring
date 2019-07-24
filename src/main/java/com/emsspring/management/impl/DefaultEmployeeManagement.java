@@ -32,7 +32,8 @@ public class DefaultEmployeeManagement implements EmployeeManagement {
     }
 
     @Override
-    public int deleteEmployee() {
+    public int deleteEmployee(String id) {
+       employeeDao.deleteEmployee(id);
         return 0;
     }
 }
