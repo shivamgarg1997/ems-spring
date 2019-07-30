@@ -5,11 +5,19 @@ import com.emsspring.model.Employee;
 import com.emsspring.abstractaudit.*;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public class DefaultEmployeeDao extends AbstractAuditDao<Employee> implements EmployeeDao {
+public class DefaultEmployeeDao extends AbstractDao<Employee> implements EmployeeDao {
+
+    DefaultEmployeeDao(){
+        super(Employee.class);
+    }
+
     @Override
     public Employee getEmployee(String id) {
         return null;
@@ -22,7 +30,11 @@ public class DefaultEmployeeDao extends AbstractAuditDao<Employee> implements Em
     }
 
     @Override
-    public int deleteEmployee(String id) {
-        return 0;
+    public void deleteEmployee(String id) {
+        CriteriaBuilder cb = getCriteriaBuilder();
+        CriteriaDelete<Employee> delete = cb.createCriteriaDelete(Employee.class);
+        Root<Employee> root = delete.from(Employee.class);
+        delete.where(cb.equal(root.get("id"),id));
+        getSession().createQuery(delete).executeUpdate();
     }
 }

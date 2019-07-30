@@ -1,6 +1,7 @@
 package com.emsspring.management.impl;
 
 import com.emsspring.dao.EmployeeDao;
+import com.emsspring.dao.impl.DefaultEmployeeDao;
 import com.emsspring.management.EmployeeManagement;
 import com.emsspring.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,7 @@ public class DefaultEmployeeManagement implements EmployeeManagement {
     }
 
     @Override
-    public int deleteEmployee(String id) {
+    public void deleteEmployee(String id) {
        employeeDao.deleteEmployee(id);
-        return 0;
     }
 }

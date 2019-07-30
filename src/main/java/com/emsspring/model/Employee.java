@@ -5,20 +5,20 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "EMPLOYEE")
-public class Employee extends AbstractModel implements Serializable {
+public class Employee implements Serializable {
 
     public Employee() {}
     public Employee(String id, String firstName, String lastName, String email) {
-        super(id);
-        //this.id = id;
+        //super(id);
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-//    @Id
-//    @Column(name = "ID", unique = false, nullable = false)
-//    private String id;
+    @Id
+    @Column(name = "ID", unique = false, nullable = false)
+    private String id;
 
     @Column(name = "FIRSTNAME")
     private String firstName;
@@ -31,13 +31,13 @@ public class Employee extends AbstractModel implements Serializable {
 
     private Department department;
 
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

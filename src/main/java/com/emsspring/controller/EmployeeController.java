@@ -40,12 +40,13 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteEmployee(@PathVariable("id") String id){
-        if(employeeManagement.deleteEmployee(id) > 0){
+    public ResponseEntity deleteEmployee(@PathVariable("id") String id) {
+        try {
+            employeeManagement.deleteEmployee(id);
             return ResponseEntity.status(200).body("Employee successfully deleted");
-        } else{
-            return ResponseEntity.status(200).body("Could not delete Employee");
+
+        } catch(Exception e) {
+            return ResponseEntity.status(200).body(e.toString());
         }
     }
-
 }
