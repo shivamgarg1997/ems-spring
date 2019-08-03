@@ -2,12 +2,10 @@ package com.emsspring.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import javax.persistence.CascadeType;
+import java.util.Set;
 
 @Entity
 @Table(name = "DEPARTMENT")
@@ -28,7 +26,19 @@ public class Department  implements Serializable {
     @Column(name = "TITLE" ,nullable = false, unique = true)
     private String title;
 
-    List<Employee> employeeList;
+    @OneToMany
+    @JoinTable(name = "EMPLOYEE-DEPARTMENT",
+               joinColumns = {@JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID")},
+               inverseJoinColumns = {@JoinColumn(name = "EMPLOYEE_ID" ,referencedColumnName = "ID")})
+    Set<Employee> employeeList;
+
+    public Set<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(Set<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
 
     public String getId() {
         return id;
