@@ -1,15 +1,23 @@
 package com.emsspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
 @Table(name = "DEPARTMENT")
 @Data
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdAt", "modifieddAt"},
+        allowGetters = true)
 public class Department  implements Serializable {
 
     Department(){}
@@ -23,8 +31,17 @@ public class Department  implements Serializable {
     @Column(name = "ID", nullable = false , unique = true)
     private String id;
 
+    @NotBlank
     @Column(name = "TITLE" ,nullable = false, unique = true)
     private String title;
+
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
 
     @OneToMany
     @JoinTable(name = "EMPLOYEE-DEPARTMENT",

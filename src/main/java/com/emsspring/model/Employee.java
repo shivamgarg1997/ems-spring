@@ -1,13 +1,22 @@
 package com.emsspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "EMPLOYEE")
 @Data
+@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdAt", "modifieddAt"},
+        allowGetters = true)
 public class Employee  implements Serializable {
 
     public Employee() {}
@@ -23,9 +32,11 @@ public class Employee  implements Serializable {
     @Column(name = "ID", unique = false, nullable = false)
     private String id;
 
+    @NotBlank
     @Column(name = "FIRSTNAME")
     private String firstName;
 
+    @NotBlank
     @Column(name = "LASTMNAME")
     private String lastName;
 
@@ -34,6 +45,14 @@ public class Employee  implements Serializable {
 
     @ManyToOne
     private Department department;
+
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
 
     public String getId() {
         return id;
@@ -75,4 +94,19 @@ public class Employee  implements Serializable {
         this.department = department;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
 }
