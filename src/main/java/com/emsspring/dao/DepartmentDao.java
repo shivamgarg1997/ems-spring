@@ -2,11 +2,18 @@ package com.emsspring.dao;
 
 import com.emsspring.model.Department;
 
+import java.util.List;
+
 public interface DepartmentDao {
 
-    void addDepartment(Department department);
+    Department getDepartment(String id);
 
-   void deleteDepartment(String id);
+    Department addDepartment(Department department);
 
+    int deleteDepartment(String id);
+
+    int updateDepartment(Department department);
+
+    List<Department> getAllDepartment();
 
 }

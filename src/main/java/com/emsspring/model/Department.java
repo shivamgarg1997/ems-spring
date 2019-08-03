@@ -1,19 +1,22 @@
 package com.emsspring.model;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "DEPARTMENT")
-public class Department implements Serializable {
+@Data
+public class Department  implements Serializable {
 
     Department(){}
 
     Department(String id,String title){
-        //super(id);
         this.id = id;
         this.title = title;
     }
@@ -24,6 +27,8 @@ public class Department implements Serializable {
 
     @Column(name = "TITLE" ,nullable = false, unique = true)
     private String title;
+
+    List<Employee> employeeList;
 
     public String getId() {
         return id;

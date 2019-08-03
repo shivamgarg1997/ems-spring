@@ -1,12 +1,19 @@
 package com.emsspring.dao;
 
+import com.emsspring.model.Department;
 import com.emsspring.model.Employee;
+
+import java.util.List;
 
 public interface EmployeeDao {
 
     Employee getEmployee(String id);
 
+    List<Employee> getAllEmployees();
+
     Employee addEmployee(Employee employee);
 
-    void deleteEmployee(String id);
+    int deleteEmployee(String id);
+
+    int updateEmployee(Employee employee);
 }
