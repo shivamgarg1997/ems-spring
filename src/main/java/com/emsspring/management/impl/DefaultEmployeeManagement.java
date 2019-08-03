@@ -18,7 +18,7 @@ public class DefaultEmployeeManagement implements EmployeeManagement {
 
     @Override
     public List<Employee> getAllEmployees() {
-        return null;
+        return employeeDao.getAllEmployees();
     }
 
     @Override

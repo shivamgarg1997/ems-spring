@@ -46,7 +46,7 @@ public class DefaultDepartmentDao extends AbstractDao<Department> implements Dep
     }
 
     @Override
-    public List<Department> getAllDepartment() {
+    public List<Department> getAllDepartments() {
         CriteriaBuilder cb = getSession().getCriteriaBuilder();
         CriteriaQuery<Department> criteriaQuery = cb.createQuery(Department.class);
         Root<Department> root = criteriaQuery.from(Department.class);

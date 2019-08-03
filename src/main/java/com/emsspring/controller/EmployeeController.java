@@ -21,7 +21,7 @@ public class EmployeeController {
     @GetMapping("/list")
     public ResponseEntity getEmployees(){
         List<Employee> employeesList = employeeManagement.getAllEmployees();
-        return ResponseEntity.status(200).body(employeesList);
+        return ResponseEntity.ok(employeesList);
     }
 
     @GetMapping("/{id}")
@@ -30,21 +30,20 @@ public class EmployeeController {
             ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee Id was not found");
         }
         Employee employee = employeeManagement.getEmployee(id);
-        return ResponseEntity.status(HttpStatus.OK).body(employee);
+        return ResponseEntity.ok(employee);
     }
 
     @PostMapping("/")
     public ResponseEntity addEmployee(@RequestBody Employee employee){
         employeeManagement.addEmployee(employee);
-        return ResponseEntity.status(HttpStatus.OK).body("okay");
+        return ResponseEntity.ok("okay");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteEmployee(@PathVariable("id") String id) {
         try {
             employeeManagement.deleteEmployee(id);
-            return ResponseEntity.status(200).body("Employee successfully deleted");
-
+            return ResponseEntity.ok("Employee successfully deleted");
         } catch(Exception e) {
             return ResponseEntity.status(200).body(e.toString());
         }
