@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getEmployee(@PathVariable("id") String id){
-        if(StringUtils.isBlank(id)){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Employee Id was not found");
-        }
+    public ResponseEntity getEmployee(@NotBlank @PathVariable("id") String id){
         Employee employee = employeeManagement.getEmployee(id);
         return ResponseEntity.ok(employee);
     }
@@ -41,12 +39,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteEmployee(@PathVariable("id") String id) {
-        try {
-            employeeManagement.deleteEmployee(id);
-            return ResponseEntity.ok("Employee successfully deleted");
-        } catch(Exception e) {
-            return ResponseEntity.status(200).body(e.toString());
-        }
+    public ResponseEntity deleteEmployee(@NotBlank @PathVariable("id") String id) {
+        return ResponseEntity.ok(deleteEmployee(id));
     }
 }

@@ -18,6 +18,7 @@ import java.util.List;
 public class DefaultEmployeeDao extends AbstractDao implements EmployeeDao {
     @Override
     public Employee getEmployee(String id) {
+
         CriteriaBuilder cb = getCriteriaBuilder();
         CriteriaQuery<Employee> query = cb.createQuery(Employee.class);
         Root<Employee> root  = query.from(Employee.class);

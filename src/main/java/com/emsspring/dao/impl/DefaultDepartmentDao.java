@@ -3,7 +3,6 @@ package com.emsspring.dao.impl;
 import com.emsspring.abstractaudit.AbstractDao;
 import com.emsspring.dao.DepartmentDao;
 import com.emsspring.model.Department;
-import com.emsspring.model.Employee;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 

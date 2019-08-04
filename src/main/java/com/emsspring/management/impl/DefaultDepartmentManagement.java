@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DefaultDepartmentManagement implements DepartmentManagement {
@@ -21,6 +22,12 @@ public class DefaultDepartmentManagement implements DepartmentManagement {
     }
 
     @Override
+    public Department addDepartment(Department department) {
+        department.setId( UUID.randomUUID().toString().replace("-", ""));
+        return departmentDao.addDepartment(department);
+    }
+
+    @Override
     public List<Department> getAllDepartments() {
         return departmentDao.getAllDepartments();
     }
@@ -29,4 +36,6 @@ public class DefaultDepartmentManagement implements DepartmentManagement {
     public Department getDepartment(String id) {
         return departmentDao.getDepartment(id);
     }
+
+
 }

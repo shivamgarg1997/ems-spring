@@ -7,7 +7,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -34,14 +37,20 @@ public class Employee  implements Serializable {
 
     @NotBlank
     @Column(name = "FIRSTNAME")
+    @Pattern(regexp = "[^a-zA-Z]+",message = "name should only contain letter")
     private String firstName;
 
     @NotBlank
     @Column(name = "LASTMNAME")
+    @Pattern(regexp = "[^a-zA-Z]+",message = "name should only contain letter")
     private String lastName;
 
     @Column(name = "EMAIL", unique = false, nullable = false)
+    @Email(message = "Email is not valid")
     private String email;
+
+    @Min(value = 18,message = "Age cant be smaller than 18")
+    private int age;
 
     @ManyToOne
     private Department department;
@@ -53,60 +62,4 @@ public class Employee  implements Serializable {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public void setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-    }
 }

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.xml.ws.Response;
 import java.util.List;
 
@@ -19,19 +21,13 @@ public class DepartmentController {
     private DepartmentManagement departmentManagement;
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteDepartment(@PathVariable("id")String id){
-        if(StringUtils.isBlank(id)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("provide department ID to be deleted");
-        }
+    public ResponseEntity deleteDepartment(@NotBlank @PathVariable("id")String id){
         departmentManagement.deleteDepartment(id);
         return ResponseEntity.ok("department succesfully deleted");
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getDepartment(@PathVariable("id")String id){
-        if(StringUtils.isBlank(id)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("provide department ID to be deleted");
-        }
+    public ResponseEntity getDepartment(@NotBlank @PathVariable("id")String id){
         return ResponseEntity.ok(departmentManagement.getDepartment(id));
     }
 
@@ -41,6 +37,14 @@ public class DepartmentController {
         return ResponseEntity.ok(departmentList);
     }
 
-//    @PostMapping("/{id}")
-//    public ResponseEntity updateDepartment(@PathVariable("id")String id,Depa)
+    @PostMapping("/")
+    public ResponseEntity addEmployee(@Valid @RequestBody Department department){
+        departmentManagement.addDepartment(department);
+        return ResponseEntity.ok("okay");
+    }
+    @PostMapping("/{id}")
+    public ResponseEntity updateDepartment(@NotBlank @PathVariable("id")String id, Department department){
+        return null;
+    }
+
 }
