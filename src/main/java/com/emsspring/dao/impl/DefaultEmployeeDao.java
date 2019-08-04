@@ -1,6 +1,7 @@
 package com.emsspring.dao.impl;
 
 import com.emsspring.dao.EmployeeDao;
+import com.emsspring.exception.ResourceNotFoundException;
 import com.emsspring.model.Employee;
 import com.emsspring.abstractaudit.*;
 import org.hibernate.query.Query;
@@ -17,14 +18,18 @@ import java.util.List;
 @Transactional
 public class DefaultEmployeeDao extends AbstractDao implements EmployeeDao {
     @Override
-    public Employee getEmployee(String id) {
+    public Employee getEmployee(String id) throws ResourceNotFoundException {
 
         CriteriaBuilder cb = getCriteriaBuilder();
         CriteriaQuery<Employee> query = cb.createQuery(Employee.class);
         Root<Employee> root  = query.from(Employee.class);
         query.select(root);
         query.where(cb.equal(root.get("id"),id));
-        return getSession().createQuery(query).getSingleResult();
+        Employee emp =  getSession().createQuery(query).getSingleResult();
+        if(emp==null){
+            throw new ResourceNotFoundException("Employee","id",id);
+        }
+        return emp;
     }
 
     @Override
