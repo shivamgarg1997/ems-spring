@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +42,15 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteEmployee(@NotBlank @PathVariable("id") String id) {
         return ResponseEntity.ok(deleteEmployee(id));
+    }
+
+    @PutMapping("/")
+    public ResponseEntity updateEmployee(@RequestBody Employee employee){
+        try{
+            Employee emp = employeeManagement.updateEmployee(employee);
+            return ResponseEntity.ok(emp);
+        } catch (Exception e){
+            return ResponseEntity.ok("employee not found");
+        }
     }
 }

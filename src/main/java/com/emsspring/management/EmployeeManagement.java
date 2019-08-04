@@ -15,4 +15,6 @@ public interface EmployeeManagement {
 
     void deleteEmployee(String id) throws ResourceNotFoundException;
 
+    Employee updateEmployee(Employee employee);
+
 }

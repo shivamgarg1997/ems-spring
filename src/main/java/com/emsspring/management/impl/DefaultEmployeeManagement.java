@@ -36,4 +36,9 @@ public class DefaultEmployeeManagement implements EmployeeManagement {
     public void deleteEmployee(String id) {
        employeeDao.deleteEmployee(id);
     }
+
+    @Override
+    public Employee updateEmployee(Employee employee) {
+        return employeeDao.updateEmployee(employee);
+    }
 }

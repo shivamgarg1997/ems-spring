@@ -53,7 +53,8 @@ public class DefaultEmployeeDao extends AbstractDao implements EmployeeDao {
     }
 
     @Override
-    public int updateEmployee(Employee employee) {
-        return 0;
+    public Employee updateEmployee(Employee employee) {
+        getSession().update(employee);
+        return getEmployee(employee.getId());
     }
 }
