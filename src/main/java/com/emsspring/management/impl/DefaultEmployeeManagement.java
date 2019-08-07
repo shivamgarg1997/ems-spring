@@ -34,7 +34,7 @@ public class DefaultEmployeeManagement implements EmployeeManagement {
     }
 
     @Override
-    public void deleteEmployee(String id) throws ResourceNotFoundException   {
+    public void deleteEmployee(String id) throws ResourceNotFoundException       {
        employeeDao.deleteEmployee(id);
     }
 

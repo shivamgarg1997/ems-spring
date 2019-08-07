@@ -12,7 +12,9 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -26,10 +28,12 @@ public class DefaultEmployeeDao extends AbstractDao implements EmployeeDao {
         query.select(root);
         query.where(cb.equal(root.get("id"),id));
         Employee emp =  getSession().createQuery(query).getSingleResult();
-        if(emp==null){
+        Optional<Employee> opt = Optional.ofNullable(emp);
+        if(opt.isPresent()){
+            return opt.get();
+        } else {
             throw new ResourceNotFoundException("Employee","id",id);
         }
-        return emp;
     }
 
     @Override
@@ -39,7 +43,9 @@ public class DefaultEmployeeDao extends AbstractDao implements EmployeeDao {
         Root<Employee> root = criteriaQuery.from(Employee.class);
         criteriaQuery.select(root);
         Query<Employee> query = getSession().createQuery(criteriaQuery);
-        return query.getResultList();
+        List<Employee> list = query.getResultList();
+        list.sort(Comparator.comparing(Employee::getFirstName).thenComparing(Employee::getAge));
+        return list;
     }
 
     @Override
